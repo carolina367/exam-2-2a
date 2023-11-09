@@ -14,7 +14,7 @@ int main()
     vector<thread> sum_threads;
     // create n threads
     for (int i = 0; i < nthreads; ++i) {
-        sum_threads.emplace_back(single_sum_thread, i, nthreads, sum);
+        sum_threads.emplace_back(single_sum_thread, i, nthreads, sum);  // emplace_back: constructs the object in-place at the end of the vector
     }
     // join the threads with the main thread
     for (auto &thread : sum_threads) {
@@ -40,7 +40,7 @@ int main()
 
     // Start the threads and let them work on summing up the pre-calculated squares
     for (int i = 0; i < nthreads; ++i) {
-        pi_threads.emplace_back(pi_sum_thread, ref(pi), sum[i][0], ref(pi_mutex)); // emplace_back: constructs the object in-place at the end of the vector
+        pi_threads.emplace_back(pi_sum_thread, ref(pi), sum[i][0], ref(pi_mutex)); // threads can't accept ref, use ref() to make it functional
     }
 
     // Wait for all threads to finish
