@@ -23,7 +23,7 @@ double step;
 
 // add synchronization primitive(s) here
 
-// Do not modify this function
+// Do not modify this function – calculates the value of each square
 inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][PAD])
 {
     double x;
@@ -35,9 +35,14 @@ inline void single_sum_thread(int id, int num_threads, double sum[NUM_THREADS][P
     }
 }
 
-// TODO
-inline void pi_sum_thread(/* add necessary arguments here */)
-{
-    // add code here
+// TODO – calculates the sum of the squares
+inline void pi_sum_thread(double& pi, double sum, mutex& pi_mutex) {
+    double local_sum = sum * step;
+    {
+        // Lock the mutex before updating the shared variable 'pi'
+        lock_guard<mutex> guard(pi_mutex);
+        pi += local_sum;
+    }
+    
     sleep(1); // DO NOT REMOVE THIS
 }
